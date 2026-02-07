@@ -1,0 +1,35 @@
+# 1. VIRTUAL ENV
+venv/
+env/
+.env
+
+# 2. RAW DATA
+data/
+*.csv
+*.xlsx
+
+# 3. GIT FILES
+.git/
+.gitignore/
+.gitignore
+
+# 4. PYTHON CACHE (Junk files)
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+
+# 5. JUPYTER NOTEBOOKS
+notebooks/
+*.ipynb
+.ipynb_checkpoints/
+
+# 6. SYSTEM FILES
+.DS_Store
+Thumbs.db
+
+# 7. LOGS & TEMP
+*.log
+*.egg-info/
+.vscode/
+catboost_info/

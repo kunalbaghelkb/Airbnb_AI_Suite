@@ -1,0 +1,19 @@
+fastapi
+uvicorn
+pandas
+numpy
+scikit-learn
+sentence-transformers
+faiss-cpu
+xgboost
+catboost
+python-dotenv
+pydantic
+requests
+seaborn
+matplotlib
+joblib
+pyyaml
+python-multipart
+sqlalchemy
+-e .

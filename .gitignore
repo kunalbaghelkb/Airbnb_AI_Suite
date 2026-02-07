@@ -1,0 +1,68 @@
+# Python & Jupyter Junk 
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyc
+.ipynb_checkpoints/
+
+# Security & Virtual Environments
+env/
+venv/
+*.venv/
+.env
+.env.local
+config.yaml
+
+# Project Artifacts
+artifacts/*
+!artifacts/.gitkeep
+
+# Models Related Files
+artifacts/models/*.keras
+artifacts/models/*.h5
+artifacts/data/*.csv
+artifacts/data/*.xlsx
+artifacts/data/*.pdf
+artifacts/faiss_index/
+
+# RAG / Vector DB
+*.faiss
+*.pkl
+faiss_index/
+
+# Machine Learning Models
+*.keras
+*.h5
+*.tflite
+*.joblib
+saved_model/
+
+# Datasets
+*.csv
+*.xlsx
+*.json
+*.zip
+*.tar.gz
+data/*
+
+# Application Logs
+logs/
+*.log
+
+# Frontend Uploads
+static/uploads/*
+!static/uploads/.gitkeep
+
+# IDE Settings/OS Junk
+.vscode/
+.idea/
+.DS_Store
+Thumbs.db
+
+# Build & Dist
+build/
+dist/
+*.egg-info/
+
+# CatBoost & XGBoost Cache
+catboost_info/
