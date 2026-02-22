@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -8,9 +9,10 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&display=swap"
+        rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <link rel="icon" href="data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 448 512'><path fill='%23FF5A5F' d='M224 373.12c-25.24-31.67-40.08-59.43-45-83.18-22.55-88 112.61-88 90.06 0-5.45 24.25-20.28 52-45 83.18zm138.15 73.23c-42.06 18.31-83.67-10.88-119.3-50.47 103.9-130.07 46.11-200-18.85-200-54.92 0-85.16 46.51-73.28 100.5 6.93 29.19 25.23 62.39 54.43 99.5-32.53 36.05-60.55 52.69-85.15 54.92-50 7.43-89.11-41.06-71.3-91.09 15.1-39.16 111.72-231.18 115.87-241.56 15.75-30.07 25.56-37.4 59.38-37.32 35.8.08 45.42 5.09 61.35 34.62 4.49 10 102.5 197.64 117.39 240 18.23 48.74-21.75 92.54-69.57 91.09-24.89-1-53.75-16.14-87.11-53.18z'/></svg>" type="image/svg+xml">
     <style>
         :root {
             --primary: #FF385C;
@@ -22,8 +24,13 @@
             --radius-lg: 12px;
         }
 
-        * { margin: 0; padding: 0; box-sizing: border-box; outline: none; }
-        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            outline: none;
+        }
+
         body {
             font-family: 'Manrope', sans-serif;
             color: var(--dark);
@@ -33,50 +40,101 @@
 
         /* --- HEADER --- */
         header {
-            position: fixed; top: 0; width: 100%; height: 80px;
-            background: white; z-index: 1000; border-bottom: 1px solid #EBEBEB;
-            display: flex; align-items: center; justify-content: space-between; padding: 0 80px;
+            position: fixed;
+            top: 0;
+            width: 100%;
+            height: 80px;
+            background: white;
+            z-index: 1000;
+            border-bottom: 1px solid #EBEBEB;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 80px;
         }
 
-        .logo { color: var(--primary); font-size: 24px; font-weight: 800; display: flex; align-items: center; text-decoration: none; gap: 5px; }
-        
-        .nav-profile {
-            display: flex; align-items: center; gap: 10px;
-            border: 1px solid var(--light-grey); padding: 5px 5px 5px 12px;
-            border-radius: 21px; cursor: pointer; transition: 0.2s;
+        .logo {
+            color: var(--primary);
+            font-size: 24px;
+            font-weight: 800;
+            display: flex;
+            align-items: center;
+            text-decoration: none;
+            gap: 5px;
         }
-        .nav-profile:hover { box-shadow: 0 2px 4px rgba(0,0,0,0.18); }
-        .avatar { width: 30px; height: 30px; background: #717171; border-radius: 50%; color: white; display: flex; align-items: center; justify-content: center; font-size: 12px; }
+
+        .nav-profile {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            border: 1px solid var(--light-grey);
+            padding: 5px 5px 5px 12px;
+            border-radius: 21px;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .nav-profile:hover {
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.18);
+        }
+
+        .avatar {
+            width: 30px;
+            height: 30px;
+            background: #717171;
+            border-radius: 50%;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+        }
 
         /* --- HERO SECTION --- */
         .hero {
-            margin-top: 80px; height: 50vh;
-            background: linear-gradient(rgba(0,0,0,0.4), rgba(0,0,0,0.2)), url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop');
-            background-size: cover; background-position: center;
-            display: flex; flex-direction: column; align-items: center; justify-content: center;
-            text-align: center; color: white; padding: 20px;
+            margin-top: 80px;
+            height: 50vh;
+            background: linear-gradient(rgba(0, 0, 0, 0.4), rgba(0, 0, 0, 0.2)), url('https://images.unsplash.com/photo-1501785888041-af3ef285b470?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+            padding: 20px;
         }
 
-        .hero h1 { font-size: 42px; font-weight: 800; margin-bottom: 25px; text-shadow: 0 2px 10px rgba(0,0,0,0.3); }
+        .hero h1 {
+            font-size: 42px;
+            font-weight: 800;
+            margin-bottom: 25px;
+            text-shadow: 0 2px 10px rgba(0, 0, 0, 0.3);
+        }
 
-        .section-title{
+        .section-title {
             padding-bottom: 1rem;
         }
 
         /* --- SEARCH BAR --- */
         .search-pill {
             background: white;
-            padding: 8px; /* Simplified padding */
+            padding: 8px;
+            /* Simplified padding */
             padding-left: 24px;
             border-radius: 50px;
             display: flex;
             align-items: center;
             width: 100%;
             max-width: 750px;
-            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
             transition: transform 0.2s;
         }
-        .search-pill:hover { transform: scale(1.01); }
+
+        .search-pill:hover {
+            transform: scale(1.01);
+        }
 
         .search-input {
             flex-grow: 1;
@@ -87,7 +145,11 @@
             height: 100%;
             min-width: 0;
         }
-        .search-input::placeholder { font-weight: 400; color: var(--grey); }
+
+        .search-input::placeholder {
+            font-weight: 400;
+            color: var(--grey);
+        }
 
         /* --- BUTTON --- */
         .search-btn {
@@ -104,71 +166,164 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275); /* Bouncy effect */
+            transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            /* Bouncy effect */
         }
-        .search-btn:hover { background: var(--primary-hover); transform: scale(1.05); }
+
+        .search-btn:hover {
+            background: var(--primary-hover);
+            transform: scale(1.05);
+        }
 
         .search-btn.cancel-mode {
             background: #222;
             transform: rotate(90deg);
         }
+
         .search-btn.cancel-mode:hover {
             background: black;
             transform: rotate(90deg) scale(1.1);
         }
 
         /* --- MAIN CONTAINER --- */
-        .container { max-width: 1200px; margin: 0 auto; padding: 40px; min-height: 500px; }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px;
+            min-height: 500px;
+        }
 
         /* --- RESULTS GRID --- */
         .grid-results {
-            display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
-            gap: 24px; margin-bottom: 80px; animation: fadeIn 0.5s ease;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+            margin-bottom: 80px;
+            animation: fadeIn 0.5s ease;
         }
 
-        .listing-card { cursor: pointer; transition: 0.2s; }
-        .listing-card:hover .card-img { transform: scale(1.05); }
+        .listing-card {
+            cursor: pointer;
+            transition: 0.2s;
+        }
+
+        .listing-card:hover .card-img {
+            transform: scale(1.05);
+        }
 
         .img-wrapper {
-            width: 100%; aspect-ratio: 1 / 0.95; overflow: hidden;
-            border-radius: var(--radius-lg); margin-bottom: 12px; position: relative;
+            width: 100%;
+            aspect-ratio: 1 / 0.95;
+            overflow: hidden;
+            border-radius: var(--radius-lg);
+            margin-bottom: 12px;
+            position: relative;
         }
-        
-        .card-img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.3s ease; }
-        .card-heart { position: absolute; top: 15px; right: 15px; color: white; font-size: 20px; text-shadow: 0 0 5px rgba(0,0,0,0.5); }
 
-        .card-info h3 { font-size: 16px; font-weight: 700; margin-bottom: 2px; }
-        .card-info p { font-size: 15px; color: var(--grey); margin-bottom: 4px; }
-        .card-price span { font-weight: 700; color: var(--dark); }
+        .card-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.3s ease;
+        }
+
+        .card-heart {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: white;
+            font-size: 20px;
+            text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        }
+
+        .card-info h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 2px;
+        }
+
+        .card-info p {
+            font-size: 15px;
+            color: var(--grey);
+            margin-bottom: 4px;
+        }
+
+        .card-price span {
+            font-weight: 700;
+            color: var(--dark);
+        }
 
         /* --- PREDICTOR --- */
         .predictor-box {
-            background: var(--bg-light); border-radius: 24px; padding: 60px;
-            display: flex; gap: 60px; align-items: center; animation: fadeIn 0.5s ease;
+            background: var(--bg-light);
+            border-radius: 24px;
+            padding: 60px;
+            display: flex;
+            gap: 60px;
+            align-items: center;
+            animation: fadeIn 0.5s ease;
         }
-        .predictor-content { flex: 1; }
-        .predictor-content h2 { font-size: 40px; color: var(--primary); margin-bottom: 15px; line-height: 1.1; }
-        .predictor-content p { font-size: 18px; color: var(--dark); margin-bottom: 30px; }
 
-        .form-card { flex: 1; background: white; padding: 30px; border-radius: 24px; box-shadow: 0 6px 16px rgba(0,0,0,0.12); }
-        .form-group { margin-bottom: 15px; }
-        .form-group label { display: block; font-size: 12px; font-weight: 700; text-transform: uppercase; color: var(--grey); margin-bottom: 5px; }
+        .predictor-content {
+            flex: 1;
+        }
 
-        select, input[type="number"] {
-            width: 100%; padding: 14px; border: 1px solid #B0B0B0; border-radius: 8px; font-size: 16px; font-family: 'Manrope', sans-serif; background: white;
+        .predictor-content h2 {
+            font-size: 40px;
+            color: var(--primary);
+            margin-bottom: 15px;
+            line-height: 1.1;
+        }
+
+        .predictor-content p {
+            font-size: 18px;
+            color: var(--dark);
+            margin-bottom: 30px;
+        }
+
+        .form-card {
+            flex: 1;
+            background: white;
+            padding: 30px;
+            border-radius: 24px;
+            box-shadow: 0 6px 16px rgba(0, 0, 0, 0.12);
+        }
+
+        .form-group {
+            margin-bottom: 15px;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 12px;
+            font-weight: 700;
+            text-transform: uppercase;
+            color: var(--grey);
+            margin-bottom: 5px;
+        }
+
+        select,
+        input[type="number"] {
+            width: 100%;
+            padding: 14px;
+            border: 1px solid #B0B0B0;
+            border-radius: 8px;
+            font-size: 16px;
+            font-family: 'Manrope', sans-serif;
+            background: white;
         }
 
         .btn-predict {
-            width: 100%; 
+            width: 100%;
             padding: 14px;
             background-image: linear-gradient(to right, #FF385C 0%, #D70466 51%, #FF385C 100%);
             background-size: 200% auto;
-            color: white; 
-            border: none; 
-            border-radius: 8px; 
-            font-size: 16px; 
-            font-weight: 700; 
-            cursor: pointer; 
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 700;
+            cursor: pointer;
             margin-top: 10px;
             transition: 0.5s;
         }
@@ -177,27 +332,95 @@
             background-position: right center;
         }
 
-        .price-display { text-align: center; margin-top: 20px; padding-top: 20px; border-top: 1px solid #EEE; }
-        .price-big { font-size: 48px; font-weight: 800; color: var(--dark); }
+        .price-display {
+            text-align: center;
+            margin-top: 20px;
+            padding-top: 20px;
+            border-top: 1px solid #EEE;
+        }
+
+        .price-big {
+            font-size: 48px;
+            font-weight: 800;
+            color: var(--dark);
+        }
 
         /* --- LOADER --- */
-        .loader-container { width: 100%; height: 300px; display: flex; flex-direction: column; align-items: center; justify-content: center; }
-        .spinner-large {
-            width: 60px; height: 60px; border: 5px solid #f3f3f3; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin-bottom: 20px;
+        .loader-container {
+            width: 100%;
+            height: 300px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
         }
-        .spinner-small { width: 20px; height: 20px; border: 2px solid #f3f3f3; border-top: 2px solid white; border-radius: 50%; animation: spin 1s linear infinite; display: inline-block; }
 
-        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
-        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        .spinner-large {
+            width: 60px;
+            height: 60px;
+            border: 5px solid #f3f3f3;
+            border-top: 5px solid var(--primary);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            margin-bottom: 20px;
+        }
+
+        .spinner-small {
+            width: 20px;
+            height: 20px;
+            border: 2px solid #f3f3f3;
+            border-top: 2px solid white;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+            display: inline-block;
+        }
+
+        @keyframes spin {
+            0% {
+                transform: rotate(0deg);
+            }
+
+            100% {
+                transform: rotate(360deg);
+            }
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
 
         /* --- RESPONSIVE --- */
         @media (max-width: 900px) {
-            .predictor-box { flex-direction: column; padding: 30px; }
-            .hero h1 { font-size: 32px; }
-            .search-pill { width: 90%; padding-left: 15px; }
-            header { padding: 0 20px; }
-            .container { padding: 20px; }
-            
+            .predictor-box {
+                flex-direction: column;
+                padding: 30px;
+            }
+
+            .hero h1 {
+                font-size: 32px;
+            }
+
+            .search-pill {
+                width: 90%;
+                padding-left: 15px;
+            }
+
+            header {
+                padding: 0 20px;
+            }
+
+            .container {
+                padding: 20px;
+            }
+
             .search-btn {
                 width: 42px;
                 height: 42px;
@@ -206,6 +429,7 @@
         }
     </style>
 </head>
+
 <body>
 
     <header>
@@ -225,8 +449,9 @@
             <div style="margin-right: 15px;">
                 <i class="fa-solid fa-magnifying-glass" style="color:var(--dark); font-size: 18px;"></i>
             </div>
-            <input type="text" id="searchQuery" class="search-input" placeholder="Search destinations (e.g., 'Cozy apartment in Manhattan')">
-            
+            <input type="text" id="searchQuery" class="search-input"
+                placeholder="Search destinations (e.g., 'Cozy apartment in Manhattan')">
+
             <button class="search-btn" id="mainSearchBtn" onclick="handleSearchAction()">
                 <i class="fa-solid fa-arrow-right" id="searchIcon"></i>
             </button>
@@ -234,7 +459,7 @@
     </section>
 
     <div class="container">
-        
+
         <div id="resultSection" style="display:none;">
             <h2 class="section-title">Stays based on your AI search</h2>
             <div class="search-wrapper" id="searchWrapper">
@@ -247,10 +472,11 @@
             <div class="predictor-content">
                 <h2>Airbnb your home.</h2>
                 <p>You could earn decent income by hosting. Check your property estimate instantly.</p>
-                <img src="https://images.unsplash.com/photo-1633605016186-a8a919b14f5d?fit=crop&w=1200" 
-                     style="width:100%; border-radius:12px; opacity:0.9; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" alt="Cozy Home">
+                <img src="https://images.unsplash.com/photo-1633605016186-a8a919b14f5d?fit=crop&w=1200"
+                    style="width:100%; border-radius:12px; opacity:0.9; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
+                    alt="Cozy Home">
             </div>
-            
+
             <div class="form-card">
                 <div class="form-group">
                     <label>Neighbourhood</label>
@@ -276,7 +502,7 @@
                 </div>
 
                 <button class="btn-predict" onclick="predictPrice()">Get Price</button>
-                
+
                 <div id="priceResult" class="price-display" style="display:none;">
                     <div style="font-size:14px; font-weight:700; color:var(--primary);">ESTIMATED PRICE</div>
                     <div id="priceValue" class="price-big">$0</div>
@@ -287,13 +513,14 @@
 
     </div>
 
-    <footer style="background:#F7F7F7; border-top:1px solid #DDD; padding:30px; text-align:center; font-size:14px; color:var(--dark);">
+    <footer
+        style="background:#F7F7F7; border-top:1px solid #DDD; padding:30px; text-align:center; font-size:14px; color:var(--dark);">
         © 2026 Airbnb AI Suite, Inc. · Privacy · Terms · Sitemap
     </footer>
 
     <script>
         const API_URL = "http://127.0.0.1:8000";
-        let isSearchActive = false; 
+        let isSearchActive = false;
 
         function getRandomImage(index) {
             const images = [
@@ -322,14 +549,14 @@
             const searchWrapper = document.getElementById("searchWrapper");
             const searchBtn = document.getElementById("mainSearchBtn");
             const searchIcon = document.getElementById("searchIcon");
-            
-            if(!query) return alert("Please enter a destination!");
+
+            if (!query) return alert("Please enter a destination!");
 
             // 1. UI Updates
             isSearchActive = true;
             predictorSection.style.display = "none";
             resultSection.style.display = "block";
-            
+
             searchBtn.classList.add("cancel-mode");
             searchIcon.classList.remove("fa-arrow-right");
             searchIcon.classList.add("fa-xmark");
@@ -345,12 +572,12 @@
             try {
                 const response = await fetch(`${API_URL}/search?query=${query}`);
                 const data = await response.json();
-                
+
                 let cardsHtml = "";
                 data.results.forEach((item, index) => {
                     const imageUrl = getRandomImage(index);
                     const rating = (4 + Math.random()).toFixed(2);
-                    
+
                     cardsHtml += `
                     <div class="listing-card">
                         <div class="img-wrapper">
@@ -362,7 +589,7 @@
                                 <h3>${item.neighbourhood}</h3>
                                 <span><i class="fa-solid fa-star" style="font-size:12px;"></i> ${rating}</span>
                             </div>
-                            <p style="color:var(--grey);">${item.name.substring(0, 35)}...</p>
+                            <p style="color:var(--grey);">${item.name}</p>
                             <div class="card-price"><span>$${item.price}</span>/night</div>
                         </div>
                     </div>`;
@@ -383,7 +610,7 @@
 
             const searchBtn = document.getElementById("mainSearchBtn");
             const searchIcon = document.getElementById("searchIcon");
-            
+
             searchBtn.classList.remove("cancel-mode");
             searchIcon.classList.remove("fa-xmark");
             searchIcon.classList.add("fa-arrow-right");
@@ -392,13 +619,13 @@
         async function predictPrice() {
             const resultBox = document.getElementById("priceResult");
             const priceVal = document.getElementById("priceValue");
-            
+
             resultBox.style.display = "block";
             priceVal.innerHTML = '<div class="spinner-small"></div>';
 
             const payload = {
                 neighbourhood_group: document.getElementById("n_group").value,
-                neighbourhood: "Harlem", 
+                neighbourhood: "Harlem",
                 latitude: 40.75, longitude: -73.98,
                 room_type: document.getElementById("room_type").value,
                 minimum_nights: parseInt(document.getElementById("nights").value),
@@ -418,10 +645,11 @@
                 priceVal.innerText = "Error";
             }
         }
-        
-        document.getElementById("searchQuery").addEventListener("keypress", function(event) {
+
+        document.getElementById("searchQuery").addEventListener("keypress", function (event) {
             if (event.key === "Enter") handleSearchAction();
         });
     </script>
 </body>
+
 </html>

@@ -2,9 +2,9 @@ import os
 import sys
 from dataclasses import dataclass
 
-from catboost import CatBoostRegressor
+# from catboost import CatBoostRegressor
+# from sklearn.ensemble import AdaBoostRegressor
 from sklearn.ensemble import (
-    AdaBoostRegressor,
     GradientBoostingRegressor,
     RandomForestRegressor
 )
@@ -45,8 +45,8 @@ class ModelTrainer:
                 "Gradient Boosting": GradientBoostingRegressor(),
                 "Linear Regression": LinearRegression(),
                 "XGBRegressor": XGBRegressor(),
-                "CatBoost Regressor": CatBoostRegressor(verbose=False),
-                "AdaBoost Regressor": AdaBoostRegressor()
+                # "CatBoost Regressor": CatBoostRegressor(verbose=False),
+                # "AdaBoost Regressor": AdaBoostRegressor()
             }
             
             # Hyperparameter for tuning
@@ -67,15 +67,15 @@ class ModelTrainer:
                     'learning_rate': [.1, .01, .05, .001],
                     'n_estimators': [8, 16, 32, 64, 128, 256]
                 },
-                "CatBoost Regressor": {
-                    'depth': [6, 8, 10],
-                    'learning_rate': [0.01, 0.05, 0.1],
-                    'iterations': [30, 50, 100]
-                },
-                "AdaBoost Regressor": {
-                    'learning_rate': [.1, .01, 0.5, .001],
-                    'n_estimators': [8, 16, 32, 64, 128, 256]
-                }
+                # "CatBoost Regressor": {
+                #     'depth': [6, 8, 10],
+                #     'learning_rate': [0.01, 0.05, 0.1],
+                #     'iterations': [30, 50, 100]
+                # },
+                # "AdaBoost Regressor": {
+                #     'learning_rate': [.1, .01, 0.5, .001],
+                #     'n_estimators': [8, 16, 32, 64, 128, 256]
+                # }
             }
             logging.info("Model Training Started with Hyperparameter Tuning")
             

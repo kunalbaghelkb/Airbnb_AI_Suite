@@ -4,6 +4,7 @@ os.environ['OMP_NUM_THREADS'] = '1'
 import uvicorn
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse 
 from pydantic import BaseModel
 import pandas as pd
 from src.pipeline.predict_pipeline import PredictPipeline, CustomData
@@ -32,7 +33,7 @@ predict_pipeline = PredictPipeline()
 # Health Check Route
 @app.get("/")
 def home():
-    return {"message": "Airbnb AI Engine is Running!"}
+    return FileResponse("templates/index.html")
 
 # GenAI Search Route
 @app.get("/search")
@@ -86,4 +87,4 @@ def predict_price(input_data: ListingInput):
 
 # Run Server (For Debugging)
 if __name__ == "__main__":
-    uvicorn.run(app, host="127.0.0.1", port=8000)
+    uvicorn.run(app, host="0.0.0.0", port=7860)
