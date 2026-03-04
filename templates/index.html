@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="Find the perfect stay with AI-powered search and price prediction.">
-    <title>Airbnb AI Suite | Future of Travel</title>
+    <title>FairStay AI | Future of Travel</title>
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -434,8 +434,8 @@
 
     <header>
         <a href="#" class="logo">
-            <i class="fa-brands fa-airbnb fa-lg"></i>
-            airbnb
+            <i class="fa-brands fa-airbnb fa-lg" style="transform: rotate(180deg);"></i>
+            FairStay
         </a>
         <div class="nav-profile">
             <i class="fa-solid fa-bars" style="font-size: 14px; margin-right: 8px; margin-left:5px;"></i>
@@ -470,7 +470,7 @@
 
         <div id="predictorSection" class="predictor-box">
             <div class="predictor-content">
-                <h2>Airbnb your home.</h2>
+                <h2>FairStay your home.</h2>
                 <p>You could earn decent income by hosting. Check your property estimate instantly.</p>
                 <img src="https://images.unsplash.com/photo-1633605016186-a8a919b14f5d?fit=crop&w=1200"
                     style="width:100%; border-radius:12px; opacity:0.9; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
@@ -479,7 +479,7 @@
 
             <div class="form-card">
                 <div class="form-group">
-                    <label>Neighbourhood</label>
+                    <label for="n_group">Neighbourhood</label>
                     <select id="n_group">
                         <option value="Manhattan">Manhattan</option>
                         <option value="Brooklyn">Brooklyn</option>
@@ -489,7 +489,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Type of place</label>
+                    <label for="room_type">Type of place</label>
                     <select id="room_type">
                         <option value="Private room">Private room</option>
                         <option value="Entire home/apt">Entire home/apt</option>
@@ -497,8 +497,8 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label>Nights</label>
-                    <input type="number" id="nights" value="3" min="1" max="1250">
+                    <label for="nights">Nights</label>
+                    <input type="number" id="nights" value="3" min="1" max="365" oninput="if(this.value > 365) this.value = 365;" placeholder="Max 365">
                 </div>
 
                 <button class="btn-predict" onclick="predictPrice()">Get Price</button>
@@ -515,11 +515,10 @@
 
     <footer
         style="background:#F7F7F7; border-top:1px solid #DDD; padding:30px; text-align:center; font-size:14px; color:var(--dark);">
-        © 2026 Airbnb AI Suite, Inc. · Privacy · Terms · Sitemap
+        © 2026 FairStay AI Suite, Inc. · Privacy · Terms · Sitemap
     </footer>
 
     <script>
-        const API_URL = "http://127.0.0.1:8000";
         let isSearchActive = false;
 
         function getRandomImage(index) {
@@ -570,7 +569,7 @@
             `;
 
             try {
-                const response = await fetch(`${API_URL}/search?query=${query}`);
+                const response = await fetch(`/search?query=${query}`);
                 const data = await response.json();
 
                 let cardsHtml = "";
@@ -620,6 +619,18 @@
             const resultBox = document.getElementById("priceResult");
             const priceVal = document.getElementById("priceValue");
 
+            const nightsInput = document.getElementById("nights");
+            let nightsValue = parseInt(nightsInput.value);
+
+            if (nightsValue > 365) {
+                alert("Maximum allowed nights is 365 nights.");
+                nightsValue = 365;
+                nightsInput.value = 365;
+            } else if (nightsValue < 1 || isNaN(nightsValue)) {
+                nightsValue = 1;
+                nightsInput.value = 1;
+            }
+
             resultBox.style.display = "block";
             priceVal.innerHTML = '<div class="spinner-small"></div>';
 
@@ -634,7 +645,7 @@
             };
 
             try {
-                const response = await fetch(`${API_URL}/predict`, {
+                const response = await fetch(`/predict`, {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify(payload)
