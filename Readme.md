@@ -101,18 +101,9 @@ This will ingest data, clean it, train models, and save the best `model.pkl`.
 
 ---
 
-## 🔮 Future Roadmap
-- [ ] **Frontend:** Develop a UI using HTML/CSS templates.
-- [ ] **API:** Expose endpoints using FastAPI.
-- [ ] **Dockerization:** Containerize the application.
-- [ ] **CI/CD:** Setup GitHub Actions.
-- [ ] **Cloud Deployment:** Deploy on AWS EC2 (Free Tier).
-
----
-
 ## 👨‍💻 Author
 **Kunal Baghel**
 
-*Aspiring Data Scientist & AI Engineer*
+*Associate Data Scientist / ML Engineer*
 
-[LinkedIn](https://linkedin.com/in/kunalbaghelz) | [GitHub](http://github.com/kunalbaghelkb)
+[LinkedIn](https://linkedin.com/in/kunalbaghelz) | [GitHub](http://github.com/kunalbaghelkb) | [Portfolio](https://kunalbaghel.vercel.app)
