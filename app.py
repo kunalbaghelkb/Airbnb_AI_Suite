@@ -85,6 +85,11 @@ def predict_price(input_data: ListingInput):
     
     return {"predicted_price": float(final_price)}
 
+# Health Check Endpoint (To keep awake api on Hugging Face)
+@app.get("/health")
+def health_check():
+    return {"status": "awake", "message": "FairStay AI is running!"}
+
 # Run Server (For Debugging)
 if __name__ == "__main__":
     uvicorn.run(app, host="0.0.0.0", port=7860)

@@ -1,0 +1,14 @@
+name: Keep Hugging Face Awake
+
+on:
+  schedule:
+    # This cron job will run after every 4 hours automatically to keep the Hugging Face API awake
+    - cron: '0 */4 * * *'
+  workflow_dispatch: # For Manual trigger
+
+jobs:
+  ping-server:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Ping Health Endpoint
+        run: curl -s https://kunal-baghel-airbnb-suite.hf.space/health -o main
