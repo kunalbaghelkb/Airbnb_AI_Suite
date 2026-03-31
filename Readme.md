@@ -39,8 +39,8 @@ The project follows a modular **MNC-Standard Pipeline** structure:
 * **Data Processing:** Pandas, NumPy
 * **Machine Learning:** Scikit-Learn, XGBoost, CatBoost
 * **GenAI/NLP:** Sentence-Transformers (`all-MiniLM-L6-v2`), FAISS
-* **Backend (Upcoming):** FastAPI / Flask
-* **Deployment (Upcoming):** Docker, AWS EC2
+* **Backend:** FastAPI
+* **Deployment:** HuggingFace
 
 ---
 
@@ -63,8 +63,6 @@ The project follows a modular **MNC-Standard Pipeline** structure:
     │   ├── utils.py            # Helper Functions
     │   ├── logger.py           # Logging Config
     │   └── exception.py        # Custom Exception Handling
-    ├── test_prediction.py      # Script to test Price Prediction logic
-    ├── test_genai.py           # Script to test RAG/Vector Search logic
     ├── app.py                  # API Entry Point (Upcoming)
     ├── requirements.txt        # Project Dependencies
     ├── Dockerfile              # Containerization
