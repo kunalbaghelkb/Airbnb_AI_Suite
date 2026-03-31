@@ -91,14 +91,6 @@ This will ingest data, clean it, train models, and save the best `model.pkl`.
     ```bash
     python src/components/data_ingestion.py
 
-5. Test Prediction
-    ```bash
-    python test_prediction.py
-
-6. Test GenAI Search
-    ```bash
-    python test_genai.py
-
 ---
 
 ## 👨‍💻 Author
