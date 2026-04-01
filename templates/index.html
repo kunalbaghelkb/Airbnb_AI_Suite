@@ -498,7 +498,7 @@
                 </div>
                 <div class="form-group">
                     <label for="nights">Nights</label>
-                    <input type="number" id="nights" value="3" min="1" max="365" oninput="if(this.value > 365) this.value = 365;" placeholder="Max 365">
+                    <input type="number" id="nights" value="3" min="1" max="30" oninput="if(this.value > 30) this.value = 30;" placeholder="Max 30">
                 </div>
 
                 <button class="btn-predict" onclick="predictPrice()">Get Price</button>
@@ -572,32 +572,55 @@
                 const response = await fetch(`/search?query=${query}`);
                 const data = await response.json();
 
-                let cardsHtml = "";
-                data.results.forEach((item, index) => {
-                    const imageUrl = getRandomImage(index);
-                    const rating = (4 + Math.random()).toFixed(2);
+                if (data.results && data.results.length > 0) {
+                    let cardsHtml = "";
+                    data.results.forEach((item, index) => {
+                        const imageUrl = getRandomImage(index);
+                        const rating = (4 + Math.random()).toFixed(2);
 
-                    cardsHtml += `
-                    <div class="listing-card">
-                        <div class="img-wrapper">
-                            <i class="fa-regular fa-heart card-heart"></i>
-                            <img src="${imageUrl}" class="card-img" alt="House">
-                        </div>
-                        <div class="card-info">
-                            <div style="display:flex; justify-content:space-between;">
-                                <h3>${item.neighbourhood}</h3>
-                                <span><i class="fa-solid fa-star" style="font-size:12px;"></i> ${rating}</span>
+                        cardsHtml += `
+                        <div class="listing-card">
+                            <div class="img-wrapper">
+                                <i class="fa-regular fa-heart card-heart"></i>
+                                <img src="${imageUrl}" class="card-img" alt="House">
                             </div>
-                            <p style="color:var(--grey);">${item.name}</p>
-                            <div class="card-price"><span>$${item.price}</span>/night</div>
-                        </div>
-                    </div>`;
-                });
+                            <div class="card-info">
+                                <div style="display:flex; justify-content:space-between;">
+                                    <h3>${item.neighbourhood}</h3>
+                                    <span><i class="fa-solid fa-star" style="font-size:12px;"></i> ${rating}</span>
+                                </div>
+                                <p style="color:var(--grey);">${item.name}</p>
+                                <div class="card-price"><span>$${item.price}</span>/night</div>
+                            </div>
+                        </div>`;
+                    });
 
-                searchWrapper.innerHTML = `<div class="grid-results">${cardsHtml}</div>`;
+                    searchWrapper.innerHTML = `<div class="grid-results">${cardsHtml}</div>`;
+                    
+                    // Smooth scroll to results
+                    resultSection.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+                } else {
+                    // Handle No Results
+                    searchWrapper.innerHTML = `
+                        <div style="text-align:center; padding:60px; color:var(--grey);">
+                            <i class="fa-solid fa-face-frown-open" style="font-size:48px; margin-bottom:20px; opacity:0.5;"></i>
+                            <h3>No matches found</h3>
+                            <p>Try searching for something more specific like "Cozy loft" or "Modern apartment".</p>
+                            <button onclick="resetUI()" style="margin-top:20px; background:none; border:none; color:var(--primary); font-weight:700; cursor:pointer; text-decoration:underline;">Clear Search</button>
+                        </div>
+                    `;
+                }
 
             } catch (error) {
-                searchWrapper.innerHTML = '<div style="text-align:center; color:red; margin-top:50px;"><h3>Server Error</h3><p>Make sure backend is running.</p></div>';
+                searchWrapper.innerHTML = `
+                    <div style="text-align:center; color:var(--primary); margin-top:50px; padding:40px;">
+                        <i class="fa-solid fa-triangle-exclamation" style="font-size:32px; margin-bottom:15px;"></i>
+                        <h3>Search Unavailable</h3>
+                        <p>We're having trouble connecting to our AI engine. Please try again in a moment.</p>
+                    </div>
+                `;
+                // Keep the 'X' button so user can exit the error state
             }
         }
 
@@ -622,10 +645,10 @@
             const nightsInput = document.getElementById("nights");
             let nightsValue = parseInt(nightsInput.value);
 
-            if (nightsValue > 365) {
-                alert("Maximum allowed nights is 365 nights.");
-                nightsValue = 365;
-                nightsInput.value = 365;
+            if (nightsValue > 30) {
+                alert("Maximum allowed nights is 30 nights.");
+                nightsValue = 30;
+                nightsInput.value = 30;
             } else if (nightsValue < 1 || isNaN(nightsValue)) {
                 nightsValue = 1;
                 nightsInput.value = 1;
@@ -634,14 +657,29 @@
             resultBox.style.display = "block";
             priceVal.innerHTML = '<div class="spinner-small"></div>';
 
+            // Dynamic Borough Defaults (Representative areas)
+            const BOROUGH_DEFAULTS = {
+                "Manhattan": { neighbourhood: "Harlem", lat: 40.8091, lng: -73.9421 },
+                "Brooklyn": { neighbourhood: "Williamsburg", lat: 40.7081, lng: -73.9571 },
+                "Queens": { neighbourhood: "Astoria", lat: 40.7644, lng: -73.9235 },
+                "Bronx": { neighbourhood: "Mott Haven", lat: 40.8066, lng: -73.9181 },
+                "Staten Island": { neighbourhood: "St. George", lat: 40.6441, lng: -74.0761 }
+            };
+
+            const selectedBorough = document.getElementById("n_group").value;
+            const defaults = BOROUGH_DEFAULTS[selectedBorough] || BOROUGH_DEFAULTS["Manhattan"];
+
             const payload = {
-                neighbourhood_group: document.getElementById("n_group").value,
-                neighbourhood: "Harlem",
-                latitude: 40.75, longitude: -73.98,
+                neighbourhood_group: selectedBorough,
+                neighbourhood: defaults.neighbourhood,
+                latitude: defaults.lat,
+                longitude: defaults.lng,
                 room_type: document.getElementById("room_type").value,
-                minimum_nights: parseInt(document.getElementById("nights").value),
-                number_of_reviews: 10, reviews_per_month: 1.5,
-                calculated_host_listings_count: 1, availability_365: 200
+                minimum_nights: nightsValue,
+                number_of_reviews: 10,
+                reviews_per_month: 1.5,
+                calculated_host_listings_count: 1,
+                availability_365: 200
             };
 
             try {

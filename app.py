@@ -41,8 +41,14 @@ def search_listings(query: str):
     '''
     Example: /search?query=apartment near park
     '''
-    results = genai_engine.search_listings(query)
-    return {"results": results}
+    try:
+        if not query or len(query.strip()) == 0:
+            return {"results": [], "message": "Query cannot be empty"}
+            
+        results = genai_engine.search_listings(query)
+        return {"results": results}
+    except Exception as e:
+        return {"results": [], "error": str(e), "message": "AI Search is temporarily unavailable"}
 
 # Price Prediction Route
 class ListingInput(BaseModel):
