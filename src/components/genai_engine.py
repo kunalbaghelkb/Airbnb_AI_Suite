@@ -47,11 +47,23 @@ class GenAIEngine:
             # 1. Load Raw Data
             df = pd.read_csv('data/raw/listings.csv')
             df = df.dropna(subset=['name'])
-            df_subset = df.copy()
-            documents = df_subset['name'].tolist()
             
-            # Store Metadata
-            metadata = df_subset[['id', 'name', 'neighbourhood', 'price']].to_dict(orient='records')
+            # 1.1 Handle Missing Columns (Description, Amenities) defensively
+            if 'description' not in df.columns:
+                df['description'] = "Explore this beautiful stay in the heart of " + df['neighbourhood'].fillna("the city")
+                
+            if 'amenities' not in df.columns:
+                df['amenities'] = "Wifi, Kitchen, Heating, Essentials"
+            
+            df['description'] = df['description'].fillna("No description available.")
+            df['amenities'] = df['amenities'].fillna("Standard Amenities")
+
+            # 1.2 Create Combined Text for Context Matching
+            df['combined_text'] = df['name'].astype(str) + " | " + df['description'].astype(str) + " | " + df['amenities'].astype(str)
+            documents = df['combined_text'].tolist()
+            
+            # Store Metadata (Including more fields for the result card)
+            metadata = df[['id', 'name', 'neighbourhood', 'price', 'description', 'amenities', 'room_type']].to_dict(orient='records')
             
             # 2. Generate Embeddings
             logging.info("Loading Embedding Model for training...")
@@ -80,7 +92,7 @@ class GenAIEngine:
         except Exception as e:
             raise CustomException(e, sys)
             
-    def search_listings(self, query, top_k=3):
+    def search_listings(self, query, top_k=6):
         '''
         It takes user query and returns Best Matches (Instant from Memory)
         '''
