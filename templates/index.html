@@ -560,12 +560,56 @@
         select,
         input[type="number"] {
             width: 100%;
-            padding: 14px;
+            padding: 12px;
             border: 1px solid #B0B0B0;
             border-radius: 8px;
-            font-size: 16px;
+            font-size: 14px;
             font-family: 'Manrope', sans-serif;
             background: white;
+            transition: border-color 0.2s;
+        }
+
+        select:focus,
+        input[type="number"]:focus {
+            border-color: var(--primary);
+        }
+
+        .btn-toggle-advanced {
+            background: none;
+            border: none;
+            color: var(--grey);
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            padding: 5px 0;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: color 0.2s;
+        }
+
+        .btn-toggle-advanced:hover {
+            color: var(--dark);
+        }
+
+        .form-group-row {
+            margin-bottom: 2px;
+        }
+
+        .advanced-fields {
+            max-height: 0;
+            overflow: hidden;
+            opacity: 0;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            border-top: 1px solid transparent;
+        }
+
+        .advanced-fields.open {
+            max-height: 500px;
+            opacity: 1;
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 1px solid #EEE;
         }
 
         .btn-predict {
@@ -700,6 +744,9 @@
 
     <section class="hero">
         <h1>Find your next adventure</h1>
+        <div style="font-size: 11px; color:rgba(255,255,255,0.9); margin-bottom: 12px; font-weight: 700; text-transform: uppercase; letter-spacing: 1.5px; background: rgba(0,0,0,0.2); padding: 4px 12px; border-radius: 50px; display: flex; align-items: center; gap: 6px; backdrop-filter: blur(4px);">
+            <i class="fa-solid fa-location-dot" style="color:var(--primary);"></i> Stays in New York City Only
+        </div>
         <div class="search-pill">
             <div style="margin-right: 15px;">
                 <i class="fa-solid fa-magnifying-glass" style="color:var(--dark); font-size: 18px;"></i>
@@ -731,21 +778,32 @@
             <div class="predictor-content">
                 <h2>FairStay your home.</h2>
                 <p>You could earn decent income by hosting. Check your property estimate instantly.</p>
+                <p style="font-size:12px; color:var(--grey); margin-top:-20px; font-weight:600; opacity:0.8;">
+                    <i class="fa-solid fa-circle-info"></i> Estimates are calculated for properties in New York City only.
+                </p>
                 <img src="https://images.unsplash.com/photo-1633605016186-a8a919b14f5d?fit=crop&w=1200"
                     style="width:100%; border-radius:12px; opacity:0.9; box-shadow: 0 4px 12px rgba(0,0,0,0.1);"
                     alt="Cozy Home">
             </div>
 
             <div class="form-card">
-                <div class="form-group">
-                    <label for="n_group">Neighbourhood</label>
-                    <select id="n_group">
-                        <option value="Manhattan">Manhattan</option>
-                        <option value="Brooklyn">Brooklyn</option>
-                        <option value="Queens">Queens</option>
-                        <option value="Bronx">Bronx</option>
-                        <option value="Staten Island">Staten Island</option>
-                    </select>
+                <div class="form-group-row" style="display: flex; gap: 15px;">
+                    <div class="form-group" style="flex: 1;">
+                        <label for="n_group">Borough</label>
+                        <select id="n_group" onchange="updateNeighborhoods()">
+                            <option value="Manhattan">Manhattan</option>
+                            <option value="Brooklyn">Brooklyn</option>
+                            <option value="Queens">Queens</option>
+                            <option value="Bronx">Bronx</option>
+                            <option value="Staten Island">Staten Island</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="flex: 1;">
+                        <label for="neighbourhood">Area</label>
+                        <select id="neighbourhood">
+                            <!-- Populated dynamically -->
+                        </select>
+                    </div>
                 </div>
                 <div class="form-group">
                     <label for="room_type">Type of place</label>
@@ -757,8 +815,46 @@
                 </div>
                 <div class="form-group">
                     <label for="nights">Nights</label>
-                    <input type="number" id="nights" value="3" min="1" max="30"
-                        oninput="if(this.value > 30) this.value = 30;" placeholder="Max 30">
+                    <input type="number" id="nights" value="3" min="1" max="30" oninput="if(this.value > 30) this.value = 30;" placeholder="Max 30">
+                </div>
+
+                <div class="advanced-section">
+                    <button type="button" class="btn-toggle-advanced" onclick="toggleAdvanced()">
+                        <span id="advanced-icon"><i class="fa-solid fa-plus"></i></span> Advanced Options
+                    </button>
+                    
+                    <div id="advanced-fields" class="advanced-fields">
+                        <div class="form-group-row" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label for="lat">Latitude (Optional)</label>
+                                <input type="number" id="lat" placeholder="Between 40.49 to 40.92" step="0.0001" min="40.49" max="40.92">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label for="lng">Longitude (Optional)</label>
+                                <input type="number" id="lng" placeholder="Between -74.25 to -73.71" step="0.0001" min="-74.25" max="-73.71">
+                            </div>
+                        </div>
+                        <div class="form-group-row" style="display: flex; gap: 10px; margin-bottom: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label for="num_reviews">Total Reviews</label>
+                                <input type="number" id="num_reviews" value="0" placeholder="10">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label for="reviews_pm">Reviews/Month</label>
+                                <input type="number" id="reviews_pm" value="0" step="0.1" placeholder="1.5">
+                            </div>
+                        </div>
+                        <div class="form-group-row" style="display: flex; gap: 10px;">
+                            <div class="form-group" style="flex: 1;">
+                                <label for="host_listings">Host Listings</label>
+                                <input type="number" id="host_listings" value="0" placeholder="1">
+                            </div>
+                            <div class="form-group" style="flex: 1;">
+                                <label for="avail_365">Availability/365</label>
+                                <input type="number" id="avail_365" value="200" placeholder="200">
+                            </div>
+                        </div>
+                    </div>
                 </div>
 
                 <button class="btn-predict" onclick="predictPrice()">Get Price</button>
@@ -1014,6 +1110,46 @@
             if (e.key === "Escape") closeModal();
         });
 
+        // Dynamic Borough-to-Neighborhood mapping
+        const BOROUGH_NEIGHBOURHOODS = {"Bronx": ["Allerton", "Baychester", "Belmont", "Bronxdale", "Castle Hill", "City Island", "Claremont Village", "Clason Point", "Co-op City", "Concourse", "Concourse Village", "East Morrisania", "Eastchester", "Edenwald", "Fieldston", "Fordham", "Highbridge", "Hunts Point", "Kingsbridge", "Longwood", "Melrose", "Morris Heights", "Morris Park", "Morrisania", "Mott Haven", "Mount Eden", "Mount Hope", "North Riverdale", "Norwood", "Olinville", "Parkchester", "Pelham Bay", "Pelham Gardens", "Port Morris", "Riverdale", "Schuylerville", "Soundview", "Spuyten Duyvil", "Throgs Neck", "Tremont", "Unionport", "University Heights", "Van Nest", "Wakefield", "West Farms", "Westchester Square", "Williamsbridge", "Woodlawn"], "Brooklyn": ["Bath Beach", "Bay Ridge", "Bedford-Stuyvesant", "Bensonhurst", "Bergen Beach", "Boerum Hill", "Borough Park", "Brighton Beach", "Brooklyn Heights", "Brownsville", "Bushwick", "Canarsie", "Carroll Gardens", "Clinton Hill", "Cobble Hill", "Columbia St", "Coney Island", "Crown Heights", "Cypress Hills", "DUMBO", "Downtown Brooklyn", "Dyker Heights", "East Flatbush", "East New York", "Flatbush", "Flatlands", "Fort Greene", "Fort Hamilton", "Gowanus", "Gravesend", "Greenpoint", "Kensington", "Manhattan Beach", "Midwood", "Mill Basin", "Navy Yard", "Park Slope", "Prospect Heights", "Prospect-Lefferts Gardens", "Red Hook", "Sea Gate", "Sheepshead Bay", "South Slope", "Sunset Park", "Vinegar Hill", "Williamsburg", "Windsor Terrace"], "Manhattan": ["Battery Park City", "Chelsea", "Chinatown", "Civic Center", "East Harlem", "East Village", "Financial District", "Flatiron District", "Gramercy", "Greenwich Village", "Harlem", "Hell's Kitchen", "Inwood", "Kips Bay", "Little Italy", "Lower East Side", "Marble Hill", "Midtown", "Morningside Heights", "Murray Hill", "NoHo", "Nolita", "Roosevelt Island", "SoHo", "Stuyvesant Town", "Theater District", "Tribeca", "Two Bridges", "Upper East Side", "Upper West Side", "Washington Heights", "West Village"], "Queens": ["Arverne", "Astoria", "Bay Terrace", "Bayside", "Bayswater", "Belle Harbor", "Bellerose", "Breezy Point", "Briarwood", "Cambria Heights", "College Point", "Corona", "Ditmars Steinway", "Douglaston", "East Elmhurst", "Edgemere", "Elmhurst", "Far Rockaway", "Flushing", "Forest Hills", "Fresh Meadows", "Glendale", "Hollis", "Holliswood", "Howard Beach", "Jackson Heights", "Jamaica", "Jamaica Estates", "Jamaica Hills", "Kew Gardens", "Kew Gardens Hills", "Laurelton", "Little Neck", "Long Island City", "Maspeth", "Middle Village", "Neponsit", "Ozone Park", "Queens Village", "Rego Park", "Richmond Hill", "Ridgewood", "Rockaway Beach", "Rosedale", "South Ozone Park", "Springfield Gardens", "St. Albans", "Sunnyside", "Whitestone", "Woodhaven", "Woodside"], "Staten Island": ["Arden Heights", "Arrochar", "Bay Terrace, Staten Island", "Bull's Head", "Castleton Corners", "Clifton", "Concord", "Dongan Hills", "Eltingville", "Emerson Hill", "Fort Wadsworth", "Graniteville", "Grant City", "Great Kills", "Grymes Hill", "Howland Hook", "Huguenot", "Lighthouse Hill", "Mariners Harbor", "Midland Beach", "New Brighton", "New Dorp", "New Dorp Beach", "New Springville", "Oakwood", "Port Richmond", "Prince's Bay", "Randall Manor", "Richmondtown", "Rosebank", "Rossville", "Shore Acres", "Silver Lake", "South Beach", "St. George", "Stapleton", "Todt Hill", "Tompkinsville", "Tottenville", "West Brighton", "Westerleigh", "Willowbrook", "Woodrow"]};
+
+        function updateNeighborhoods() {
+            const borough = document.getElementById("n_group").value;
+            const areaSelect = document.getElementById("neighbourhood");
+            const neighborhoods = BOROUGH_NEIGHBOURHOODS[borough] || [];
+            
+            areaSelect.innerHTML = neighborhoods.map(n => `<option value="${n}">${n}</option>`).join("");
+        }
+
+        // Initialize neighborhoods on load
+        document.addEventListener('DOMContentLoaded', updateNeighborhoods);
+
+        function toggleAdvanced() {
+            const fields = document.getElementById("advanced-fields");
+            const icon = document.getElementById("advanced-icon");
+            fields.classList.toggle("open");
+            
+            if (fields.classList.contains("open")) {
+                icon.innerHTML = '<i class="fa-solid fa-minus"></i>';
+            } else {
+                icon.innerHTML = '<i class="fa-solid fa-plus"></i>';
+            }
+        }
+
+        function resetUI() {
+            isSearchActive = false;
+            document.getElementById("searchQuery").value = "";
+            document.getElementById("predictorSection").style.display = "flex";
+            document.getElementById("resultSection").style.display = "none";
+
+            const searchBtn = document.getElementById("mainSearchBtn");
+            const searchIcon = document.getElementById("searchIcon");
+
+            searchBtn.classList.remove("cancel-mode");
+            searchIcon.classList.remove("fa-xmark");
+            searchIcon.classList.add("fa-arrow-right");
+        }
+
         async function predictPrice() {
             const resultBox = document.getElementById("priceResult");
             const priceVal = document.getElementById("priceValue");
@@ -1033,29 +1169,53 @@
             resultBox.style.display = "block";
             priceVal.innerHTML = '<div class="spinner-small"></div>';
 
-            // Dynamic Borough Defaults (Representative areas)
             const BOROUGH_DEFAULTS = {
-                "Manhattan": { neighbourhood: "Harlem", lat: 40.8091, lng: -73.9421 },
-                "Brooklyn": { neighbourhood: "Williamsburg", lat: 40.7081, lng: -73.9571 },
-                "Queens": { neighbourhood: "Astoria", lat: 40.7644, lng: -73.9235 },
-                "Bronx": { neighbourhood: "Mott Haven", lat: 40.8066, lng: -73.9181 },
-                "Staten Island": { neighbourhood: "St. George", lat: 40.6441, lng: -74.0761 }
+                "Manhattan": { lat: 40.8091, lng: -73.9421 },
+                "Brooklyn": { lat: 40.7081, lng: -73.9571 },
+                "Queens": { lat: 40.7644, lng: -73.9235 },
+                "Bronx": { lat: 40.8066, lng: -73.9181 },
+                "Staten Island": { lat: 40.6441, lng: -74.0761 }
             };
 
             const selectedBorough = document.getElementById("n_group").value;
             const defaults = BOROUGH_DEFAULTS[selectedBorough] || BOROUGH_DEFAULTS["Manhattan"];
 
+            // Get user overrides or use defaults
+            let latValue = parseFloat(document.getElementById("lat").value);
+            let lngValue = parseFloat(document.getElementById("lng").value);
+
+            // Bounds from CSV (with small buffer)
+            const bounds = { latMin: 40.49, latMax: 40.92, lngMin: -74.25, lngMax: -73.71 };
+
+            if (!isNaN(latValue) && (latValue < bounds.latMin || latValue > bounds.latMax)) {
+                alert(`Latitude must be between ${bounds.latMin} and ${bounds.latMax}. Resetting to default.`);
+                latValue = NaN; 
+                document.getElementById("lat").value = "";
+            }
+            if (!isNaN(lngValue) && (lngValue < bounds.lngMin || lngValue > bounds.lngMax)) {
+                alert(`Longitude must be between ${bounds.lngMin} and ${bounds.lngMax}. Resetting to default.`);
+                lngValue = NaN;
+                document.getElementById("lng").value = "";
+            }
+
+            latValue = isNaN(latValue) ? defaults.lat : latValue;
+            lngValue = isNaN(lngValue) ? defaults.lng : lngValue;
+            const numReviews = parseInt(document.getElementById("num_reviews").value) || 10;
+            const reviewsPM = parseFloat(document.getElementById("reviews_pm").value) || 1.5;
+            const hostListings = parseInt(document.getElementById("host_listings").value) || 1;
+            const availability = parseInt(document.getElementById("avail_365").value) || 200;
+
             const payload = {
                 neighbourhood_group: selectedBorough,
-                neighbourhood: defaults.neighbourhood,
-                latitude: defaults.lat,
-                longitude: defaults.lng,
+                neighbourhood: document.getElementById("neighbourhood").value,
+                latitude: latValue,
+                longitude: lngValue,
                 room_type: document.getElementById("room_type").value,
                 minimum_nights: nightsValue,
-                number_of_reviews: 10,
-                reviews_per_month: 1.5,
-                calculated_host_listings_count: 1,
-                availability_365: 200
+                number_of_reviews: numReviews,
+                reviews_per_month: reviewsPM,
+                calculated_host_listings_count: hostListings,
+                availability_365: availability
             };
 
             try {
