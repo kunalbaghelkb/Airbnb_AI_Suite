@@ -827,31 +827,31 @@
                         <div class="form-group-row" style="display: flex; gap: 10px; margin-bottom: 10px;">
                             <div class="form-group" style="flex: 1;">
                                 <label for="lat">Latitude (Optional)</label>
-                                <input type="number" id="lat" placeholder="Between 40.49 to 40.92" step="0.0001" min="40.49" max="40.92">
+                                <input type="number" id="lat" placeholder="40.49 to 40.92" step="0.0001" min="40.49" max="40.92">
                             </div>
                             <div class="form-group" style="flex: 1;">
                                 <label for="lng">Longitude (Optional)</label>
-                                <input type="number" id="lng" placeholder="Between -74.25 to -73.71" step="0.0001" min="-74.25" max="-73.71">
+                                <input type="number" id="lng" placeholder="-74.25 to -73.71" step="0.0001" min="-74.25" max="-73.71">
                             </div>
                         </div>
                         <div class="form-group-row" style="display: flex; gap: 10px; margin-bottom: 10px;">
                             <div class="form-group" style="flex: 1;">
                                 <label for="num_reviews">Total Reviews</label>
-                                <input type="number" id="num_reviews" value="0" placeholder="10">
+                                <input type="number" id="num_reviews" value="0" placeholder="Max 700" min="0" max="700">
                             </div>
                             <div class="form-group" style="flex: 1;">
                                 <label for="reviews_pm">Reviews/Month</label>
-                                <input type="number" id="reviews_pm" value="0" step="0.1" placeholder="1.5">
+                                <input type="number" id="reviews_pm" value="0" step="0.1" placeholder="Max 60" min="0" max="60">
                             </div>
                         </div>
                         <div class="form-group-row" style="display: flex; gap: 10px;">
                             <div class="form-group" style="flex: 1;">
                                 <label for="host_listings">Host Listings</label>
-                                <input type="number" id="host_listings" value="0" placeholder="1">
+                                <input type="number" id="host_listings" value="0" placeholder="Max 400" min="0" max="400">
                             </div>
                             <div class="form-group" style="flex: 1;">
                                 <label for="avail_365">Availability/365</label>
-                                <input type="number" id="avail_365" value="200" placeholder="200">
+                                <input type="number" id="avail_365" value="200" placeholder="Max 365" min="0" max="365">
                             </div>
                         </div>
                     </div>
@@ -1200,10 +1200,16 @@
 
             latValue = isNaN(latValue) ? defaults.lat : latValue;
             lngValue = isNaN(lngValue) ? defaults.lng : lngValue;
-            const numReviews = parseInt(document.getElementById("num_reviews").value) || 10;
-            const reviewsPM = parseFloat(document.getElementById("reviews_pm").value) || 1.5;
-            const hostListings = parseInt(document.getElementById("host_listings").value) || 1;
-            const availability = parseInt(document.getElementById("avail_365").value) || 200;
+            const numReviews = parseInt(document.getElementById("num_reviews").value);
+            const reviewsPM = parseFloat(document.getElementById("reviews_pm").value);
+            const hostListings = parseInt(document.getElementById("host_listings").value);
+            const availability = parseInt(document.getElementById("avail_365").value);
+
+            // Additional field validation
+            if (numReviews > 700) alert("Total Reviews capped at 700.");
+            if (reviewsPM > 60) alert("Reviews/Month capped at 60.");
+            if (hostListings > 400) alert("Host Listings capped at 400.");
+            if (availability > 365) alert("Availability capped at 365.");
 
             const payload = {
                 neighbourhood_group: selectedBorough,
@@ -1212,10 +1218,10 @@
                 longitude: lngValue,
                 room_type: document.getElementById("room_type").value,
                 minimum_nights: nightsValue,
-                number_of_reviews: numReviews,
-                reviews_per_month: reviewsPM,
-                calculated_host_listings_count: hostListings,
-                availability_365: availability
+                number_of_reviews: Math.min(Math.max(numReviews, 0), 700) || 0,
+                reviews_per_month: Math.min(Math.max(reviewsPM, 0), 60) || 0,
+                calculated_host_listings_count: Math.min(Math.max(hostListings, 0), 400) || 0,
+                availability_365: Math.min(Math.max(availability, 0), 365) || 200
             };
 
             try {
