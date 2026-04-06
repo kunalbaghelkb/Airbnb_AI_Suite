@@ -76,15 +76,20 @@ The project follows a modular **MNC-Standard Pipeline** structure:
     ```bash
     git clone [https://github.com/kunalbaghelkb/Airbnb_AI_Suite.git](https://github.com/kunalbaghelkb/Airbnb_AI_Suite.git) && cd Airbnb_AI_Suite
 
-2. Create Virtual Environment
+2. Download the dataset from Kaggle:  
+   https://www.kaggle.com/datasets/dgomonov/new-york-city-airbnb-open-data
+
+   *(Place the extracted files inside the `data/raw/` directory)*
+
+3. Create Virtual Environment
     ```bash
     python3.11 -m venv venv
 
-3. Install Dependencies
+4. Install Dependencies
     ```bash
     pip install -r requirements.txt
 
-4. Run the Training Pipeline
+5. Run the Training Pipeline
 This will ingest data, clean it, train models, and save the best `model.pkl`.
     ```bash
     python src/components/data_ingestion.py
