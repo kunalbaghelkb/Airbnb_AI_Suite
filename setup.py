@@ -20,7 +20,7 @@ def get_requirements(file_path:str)->List[str]:
         return requirements
     
 setup(
-    name='Airbnb_AI_Suite',
+    name='FairStay_AI_Suite',
     version='1.0',
     author='Kunal Baghel',
     author_email='126225910+kunalbaghelkb@users.noreply.github.com',

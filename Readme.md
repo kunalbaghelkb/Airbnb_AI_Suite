@@ -1,4 +1,4 @@
-# 🗽 Airbnb AI Suite: End-to-End ML & GenAI Project
+# 🗽 FairStay AI Suite: End-to-End ML & GenAI Project
 
 ![Python](https://img.shields.io/badge/Python-3.11-blue)
 ![Machine Learning](https://img.shields.io/badge/ML-XGBoost%20%7C%20Sklearn-green)
@@ -6,7 +6,7 @@
 ![Docker](https://img.shields.io/badge/Deployment-Docker%20%7C%20AWS-blueviolet)
 
 ## 📌 Project Overview
-The **Airbnb AI Suite** is a production-grade machine learning application designed to solve two major problems in the Real Estate/Tourism domain:
+The **FairStay AI Suite** is a production-grade machine learning application designed to solve two major problems in the Real Estate/Tourism domain:
 
 1.  **Smart Price Prediction Engine:** Helps hosts/users estimate the correct rental price based on location, amenities, and market trends using advanced regression algorithms (XGBoost).
 2.  **GenAI Recommendation System:** A **RAG (Retrieval Augmented Generation)** based search engine that allows users to search for properties using natural language (e.g., *"I need a peaceful apartment near Central Park for remote work"*).
@@ -23,7 +23,7 @@ The project follows a modular **MNC-Standard Pipeline** structure:
 * **Storage:** Saves processed artifacts (`preprocessor.pkl`).
 
 ### 2. Model Factory
-* **Algorithms:** Trains multiple models (Random Forest, XGBoost, CatBoost, Gradient Boosting).
+* **Algorithms:** Trains multiple models (Random Forest, XGBoost, Gradient Boosting).
 * **Hyperparameter Tuning:** Uses `GridSearchCV` to find the best parameters.
 * **Selection:** Automatically selects the model with the best R2 Score (> 0.60).
 
@@ -46,7 +46,7 @@ The project follows a modular **MNC-Standard Pipeline** structure:
 
 ## 📂 Project Structure
 
-    Airbnb_AI_Suite/
+    FairStay_AI_Suite/
     ├── artifacts/              # Stores Models & Preprocessors (Ignored in Git)
     ├── data/                   # Raw & Processed Data (Ignored in Git)
     ├── logs/                   # Execution Logs

@@ -12,7 +12,7 @@ from src.components.genai_engine import GenAIEngine
 
 # 1. App Initialize
 app = FastAPI(
-    title="Airbnb AI Suite API",
+    title="FairStay AI Suite API",
     description="API for Price Prediction & GenAI Search",
     version="1.0"
 )

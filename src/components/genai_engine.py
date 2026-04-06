@@ -6,6 +6,7 @@ import pickle
 from sentence_transformers import SentenceTransformer
 from src.exception import CustomException
 from src.logger import logging
+from src.utils import get_database_connection
 
 class GenAIEngine:
     def __init__(self):
@@ -44,11 +45,35 @@ class GenAIEngine:
         try:
             logging.info("Starting Vector Database Creation...")
             
-            # 1. Load Raw Data
-            df = pd.read_csv('data/raw/listings.csv')
+            # 1. Load Data (Prefer SQLite, Fallback to CSV)
+            df = None
+            try:
+                logging.info("Connecting to SQLite Database for stay data...")
+                engine = get_database_connection()
+                # Check if table exists before reading
+                check_query = "SELECT name FROM sqlite_master WHERE type='table' AND name='listings_raw'"
+                table_exists = pd.read_sql(check_query, engine)
+                
+                if not table_exists.empty:
+                    logging.info("Table 'listings_raw' found. Reading from Database...")
+                    df = pd.read_sql("SELECT * FROM listings_raw", engine)
+                else:
+                    logging.warning("Table 'listings_raw' not found in Database.")
+                    
+            except Exception as e:
+                logging.warning(f"Database connection failed: {str(e)}. Attempting CSV fallback...")
+
+            # 1.1 CSV Fallback if Database read failed
+            if df is None or df.empty:
+                logging.info("Falling back to reading from raw CSV: data/raw/listings.csv")
+                if os.path.exists('data/raw/listings.csv'):
+                    df = pd.read_csv('data/raw/listings.csv')
+                else:
+                    raise CustomException("Source data not found (Database or CSV missing).", sys)
+
+            # 1.2 Data Preprocessing (Defense)
             df = df.dropna(subset=['name'])
             
-            # 1.1 Handle Missing Columns (Description, Amenities) defensively
             if 'description' not in df.columns:
                 df['description'] = "Explore this beautiful stay in the heart of " + df['neighbourhood'].fillna("the city")
                 

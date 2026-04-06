@@ -11,7 +11,7 @@ class TrainPipeline:
 
     def run_pipeline(self):
         """
-        Ye function poora training process automate karta hai:
+        This function automate training process:
         Data Ingestion
         Transformation
         Model Training
